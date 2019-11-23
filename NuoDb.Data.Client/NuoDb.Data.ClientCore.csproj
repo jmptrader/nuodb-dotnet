@@ -1,35 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3A992E63-061C-47EE-862A-452334D70D90}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworks>netcoreapp2.1;netcoreapp2.2</TargetFrameworks>
     <RootNamespace>NuoDb.Data.Client</RootNamespace>
-    <AssemblyName>NuoDb.Data.Client</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET_40;MONO</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NET_40;MONO</DefineConstants>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -40,9 +21,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
@@ -67,34 +47,33 @@
     <Compile Include="NuoDbTransaction.cs" />
     <Compile Include="Protocol.cs" />
     <Compile Include="RemEncodedStream.cs" />
-    <Compile Include="Security\BigInteger.cs" />
-    <Compile Include="Security\RemoteGroup.cs" />
-    <Compile Include="Security\RemotePassword.cs" />
     <Compile Include="NuoDbSqlCode.cs" />
     <Compile Include="SQLContext.cs" />
     <Compile Include="Util\Extensions.cs" />
     <Compile Include="Util\Op.cs" />
     <Compile Include="Util\StringUtils.cs" />
-    <Compile Include="ValueBytes.cs" />
-    <Compile Include="Xml\Attribute.cs" />
     <Compile Include="NuoDbCommand.cs" />
     <Compile Include="NuoDbMultipleCommands.cs" />
     <Compile Include="NuoDbConnectionInternal.cs" />
+    <Compile Include="NuoDbSqlException.cs" />
     <Compile Include="Net\CryptoInputStream.cs" />
     <Compile Include="Net\CryptoOutputStream.cs" />
     <Compile Include="Net\CryptoSocket.cs" />
+    <Compile Include="Security\BigInteger.cs" />
+    <Compile Include="Security\RemoteGroup.cs" />
+    <Compile Include="Security\RemotePassword.cs" />
     <Compile Include="Security\Cypher.cs" />
     <Compile Include="Security\CypherRC4.cs" />
     <Compile Include="NuoDbDataReader.cs" />
     <Compile Include="DataStream.cs" />
-    <Compile Include="Xml\Doc.cs" />
     <Compile Include="EncodedDataStream.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="NuoDbSqlException.cs" />
+    <Compile Include="Xml\Attribute.cs" />
+    <Compile Include="Xml\Doc.cs" />
     <Compile Include="Xml\Tag.cs" />
     <Compile Include="Value.cs" />
     <Compile Include="ValueBoolean.cs" />
     <Compile Include="ValueByte.cs" />
+    <Compile Include="ValueBytes.cs" />
     <Compile Include="ValueDate.cs" />
     <Compile Include="ValueDouble.cs" />
     <Compile Include="ValueInt.cs" />
@@ -105,6 +84,7 @@
     <Compile Include="ValueString.cs" />
     <Compile Include="ValueTime.cs" />
     <Compile Include="ValueTimestamp.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -115,12 +95,5 @@
   <ItemGroup>
     <EmbeddedResource Include="TimeZones.xml" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  
 </Project>

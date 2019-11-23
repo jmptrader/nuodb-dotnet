@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;MONO</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -26,7 +26,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;MONO</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -50,7 +50,7 @@
     <Compile Include="..\NuoDb.Data.Client\ConnectionPoolManager.cs" />
     <Compile Include="..\NuoDb.Data.Client\DataFeeder.cs" />
     <Compile Include="..\NuoDb.Data.Client\NuoDbBulkLoader.cs" />
-    <Compile Include="..\NuoDb.Data.Client\NuoDbBulkLoaderColumnMapping .cs" />
+    <Compile Include="..\NuoDb.Data.Client\NuoDbBulkLoaderColumnMapping.cs" />
     <Compile Include="..\NuoDb.Data.Client\NuoDbBulkLoaderColumnMappingCollection.cs" />
     <Compile Include="..\NuoDb.Data.Client\NuoDbCommandBuilder.cs" />
     <Compile Include="..\NuoDb.Data.Client\NuoDbConnectionInternal.cs" />

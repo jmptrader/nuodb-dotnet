@@ -341,9 +341,9 @@ namespace NUnitTestProject
                     DbCommand updateCommand = connection.CreateCommand();
                     updateCommand.CommandText = "insert into hockey (number, name) values (99, 'xxxx')";
 
-                    count1 = (int)countCommand.ExecuteScalar();
+                    count1 = Utils.ToInt(countCommand.ExecuteScalar());
                     updateCommand.ExecuteNonQuery();
-                    int count2 = (int)countCommand.ExecuteScalar();
+                    int count2 = Utils.ToInt(countCommand.ExecuteScalar());
 
                     Assert.AreEqual(count2, count1 + 1);
 
@@ -358,7 +358,7 @@ namespace NUnitTestProject
                 DbCommand countCommand = connection.CreateCommand();
                 countCommand.CommandText = "select count(*) from hockey";
 
-                int count3 = (int)countCommand.ExecuteScalar();
+                int count3 = Utils.ToInt(countCommand.ExecuteScalar());
                 Assert.AreEqual(count3, count1);
             }
         }
@@ -377,15 +377,15 @@ namespace NUnitTestProject
                 DbCommand updateCommand = connection.CreateCommand();
                 updateCommand.CommandText = "insert into hockey (number, name) values (99, 'xxxx')";
 
-                int count1 = (int)countCommand.ExecuteScalar();
+                int count1 = Utils.ToInt(countCommand.ExecuteScalar());
                 updateCommand.ExecuteNonQuery();
-                int count2 = (int)countCommand.ExecuteScalar();
+                int count2 = Utils.ToInt(countCommand.ExecuteScalar());
 
                 Assert.AreEqual(count2, count1 + 1);
 
                 transaction.Rollback();
 
-                int count3 = (int)countCommand.ExecuteScalar();
+                int count3 = Utils.ToInt(countCommand.ExecuteScalar());
                 Assert.AreEqual(count3, count1);
             }
         }
@@ -778,7 +778,6 @@ namespace NUnitTestProject
             DateTime now = DateTime.Now;
             TestDataType("date", now, now.Date);
             TestDataType("date", "1999-01-31");
-            TestDataType("dateonly", "1999-01-31");
         }
 
         [Test]
@@ -788,7 +787,6 @@ namespace NUnitTestProject
             TestDataType("time", now, now.TimeOfDay);
             TestDataType("time", new TimeSpan(10, 30, 22));
             TestDataType("time", "10:30:22");
-            TestDataType("timeonly", "10:30:22");
         }
 
         [Test]
@@ -892,7 +890,7 @@ namespace NUnitTestProject
                 DbCommand command = new NuoDbCommand("select count(*) from temp", connection);
                 object val = command.ExecuteScalar();
 
-                Assert.AreEqual(expectedCount, val);
+                Assert.AreEqual(expectedCount, Utils.ToInt(val));
 
                 command = new NuoDbCommand("select col from temp", connection);
                 val = command.ExecuteScalar();
@@ -1207,8 +1205,7 @@ namespace NUnitTestProject
 
                 command = new NuoDbCommand("select count(*) from hockey", connection);
                 object val = command.ExecuteScalar();
-
-                VerifyBulkLoad((int)val, "Fan");
+                VerifyBulkLoad(Utils.ToInt(val), "Fan");
             }
         }
 
@@ -1233,8 +1230,7 @@ namespace NUnitTestProject
 
                 command = new NuoDbCommand("select count(*) from hockey", connection);
                 object val = command.ExecuteScalar();
-
-                VerifyBulkLoad((int)val, "Fan");
+                VerifyBulkLoad(Utils.ToInt(val), "Fan");
             }
 
         }
@@ -1260,8 +1256,7 @@ namespace NUnitTestProject
 
                 command = new NuoDbCommand("select count(*) from hockey", connection);
                 object val = command.ExecuteScalar();
-
-                VerifyBulkLoad((int)val, "Fan");
+                VerifyBulkLoad(Utils.ToInt(val), "Fan");
             }
 
         }
@@ -1287,8 +1282,7 @@ namespace NUnitTestProject
 
                 command = new NuoDbCommand("select count(*) from hockey", connection);
                 object val = command.ExecuteScalar();
-
-                VerifyBulkLoad((int)val, "Fan");
+                VerifyBulkLoad(Utils.ToInt(val), "Fan");
             }
         }
 
@@ -1313,8 +1307,7 @@ namespace NUnitTestProject
 
                 command = new NuoDbCommand("select count(*) from hockey", connection);
                 object val = command.ExecuteScalar();
-
-                VerifyBulkLoad((int)val, "Fan");
+                VerifyBulkLoad(Utils.ToInt(val), "Fan");
             }
         }
 
@@ -1406,7 +1399,7 @@ namespace NUnitTestProject
                 pooledItems = NuoDbConnection.GetPooledConnectionCount(cnn);
                 Assert.AreEqual(2, pooledItems);
 
-                Thread.Sleep(3000);
+                Thread.Sleep(13000);
 
                 // 1 busy
                 pooledItems = NuoDbConnection.GetPooledConnectionCount(cnn);
@@ -1430,7 +1423,7 @@ namespace NUnitTestProject
             pooledItems = NuoDbConnection.GetPooledConnectionCount(newConnString);
             Assert.AreEqual(1, pooledItems);
 
-            Thread.Sleep(3000);
+            Thread.Sleep(13000);
 
             // empty pool
             pooledItems = NuoDbConnection.GetPooledConnectionCount(newConnString);
@@ -1576,7 +1569,7 @@ namespace NUnitTestProject
 
                 IAsyncResult result = countCommand.BeginExecuteScalar();
 
-                int count = (int)countCommand.EndExecuteScalar(result);
+                int count = Utils.ToInt(countCommand.EndExecuteScalar(result));
             }
         }
 
@@ -1609,7 +1602,7 @@ namespace NUnitTestProject
         void HandleCallback2(IAsyncResult result)
         {
             NuoDbCommand command = (NuoDbCommand)result.AsyncState;
-            int count = (int)command.EndExecuteScalar(result);
+            int count = Utils.ToInt(command.EndExecuteScalar(result));
         }
 
         [Test]
@@ -1658,7 +1651,7 @@ namespace NUnitTestProject
             command.Connection.Close();
         }
 
-#if !__MonoCS__
+#if !MONO
         [Test]
         public void TestTimeZone()
         {
